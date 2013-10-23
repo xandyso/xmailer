@@ -68,6 +68,7 @@ type
     FAttempts: Byte;
     FBCC: TStrings;
     FCC: TStrings;
+    FHeader: TStrings;
     FOnProgress: TMailerProgress;
     FReadingConfirmation: Boolean;
     FMessage: TStrings;
@@ -91,6 +92,7 @@ type
     property CC: TStrings read FCC;
     property BCC: TStrings read FBCC;
     property Subject: string read FSubject write FSubject;
+    property Header: TStrings read FHeader;
     property Message: TStrings read FMessage;
     property Attachments: TStrings read FAttachments;
     property Priority: TMessPriority read FPriority write FPriority;
@@ -375,6 +377,7 @@ begin
   FReceivers := TStringList.Create;
   FCC := TStringList.Create;
   FBCC := TStringList.Create;
+  FHeader := TStringList.Create;
   FMessage := TStringList.Create;
   FAttachments := TStringList.Create;
   FReceivers.StrictDelimiter := True;
@@ -394,6 +397,7 @@ begin
   FReceivers.Free;
   FCC.Free;
   FBCC.Free;
+  FHeader.Free;
   FMessage.Free;
   FAttachments.Free;
   FSmtp.Free;
@@ -462,6 +466,7 @@ begin
     Progress(VPPos, VPMax, 'Formating headers ...');
 {$IFDEF UTF_8_MIME}
     VMimeMess.Header.CharsetCode := UTF_8;
+    VMimeMess.Header.CustomHeaders.Assign(FHeader);
     VMimeMess.Header.CustomHeaders.Insert(0, 'Subject: ' +
       UTF8InlineEncode(FSubject));
     FormatEmailAddress(FSender, VSenderAddr, VSenderDesc);

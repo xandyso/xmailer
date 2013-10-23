@@ -20,7 +20,7 @@
     </CompilerOptions>
     <Description Value="X-Mailer offers a really simple way to send e-mails using Free Pascal."/>
     <License Value="Please see the LICENSE file."/>
-    <Version Release="1"/>
+    <Version Release="2"/>
     <Files Count="1">
       <Item1>
         <Filename Value="..\src\xmailer.pas"/>
